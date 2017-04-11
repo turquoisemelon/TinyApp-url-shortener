@@ -8,11 +8,12 @@
   <% include partials/_header %>
   </header>
     <ul>
-      <li>b2xVn2: http://www.lighthouselabs.ca</li>
-      <li>9sm5xK: http://www.google.com</li>
+      <% for (let prop in urls) { %>
+      <li><%= prop %> - <%= urls[prop] %></li>
       <li>
-        <a href="#">Shorten a new URL</a>
+        <a href="#">Create a New Short Link</a>
       </li>
+      <% } %>
     </ul>
 </body>
 </html>
