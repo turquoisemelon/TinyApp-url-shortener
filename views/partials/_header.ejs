@@ -1,8 +1,13 @@
 <header>
-  <form class="" action="/login" method="POST">
-    <p>Logged in as <%= username %><p>
-    <label for="username">Username: </label>
-    <input type="text" name="username">
+  <%if (!username) {%>
+  <form action="/login" method="POST">
+    <input type="text" name="username" placeholder="Username">
     <button type="submit">Submit</button>
   </form>
+  <% } else { %>
+  <form action="/login" method="POST">
+    <p>Logged in as <%= username %><p>
+    <button type="submit">Logout</button>
+  </form>
+  <% } %>
 </header>
