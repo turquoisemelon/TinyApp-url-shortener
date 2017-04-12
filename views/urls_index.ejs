@@ -7,13 +7,14 @@
   <header>
   <% include partials/_header %>
   </header>
+  <form action="/urls/9sm5xK/delete" method="POST">
     <ul>
       <% for (let prop in urls) { %>
       <li><%= prop %> - <%= urls[prop] %></li>
-      <li>
-        <a href="#">Create a New Short Link</a>
-      </li>
-      <% } %>
     </ul>
+      <button type="submit"><a href="#">Create a New Short Link</a></button>
+      <button type="submit">Delete</button>
+      <% } %>
+  </form>
 </body>
 </html>
