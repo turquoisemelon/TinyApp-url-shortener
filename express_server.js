@@ -58,6 +58,12 @@ app.post("/urls/:id/delete", (req, res) => {
   res.redirect("/urls");
 });
 
+app.post("/login", (req, res) => {
+  console.log(req.body.username);
+  res.cookie('username', req.body.username);
+  res.redirect("/");
+})
+
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
