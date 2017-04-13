@@ -62,6 +62,10 @@ app.post("/urls/:id/delete", (req, res) => {
   res.redirect("/urls");
 });
 
+app.get("/register", (req, res)=> {
+  res.render("urls_register");
+})
+
 app.post("/login", (req, res) => {
   console.log(req.body.username);
   res.cookie('username', req.body.username);
