@@ -99,6 +99,10 @@ app.post("/urls/:id/delete", (req, res) => {
   res.redirect("/urls");
 });
 
+app.get("/login", (req, res) => {
+  res.render("urls_login");
+});
+
 app.get("/register", (req, res)=> {
   res.render("urls_register");
 });
