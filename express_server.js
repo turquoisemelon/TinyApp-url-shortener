@@ -31,8 +31,12 @@ app.get("/", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  let userId = req.cookies["user_id"]
-  let userObj = users[userId];
+  let userId = req.cookies["user_id"];
+  if (userId in users) {
+    userObj = users[userId];
+  } else {
+    userObj = null;
+  }
   let templateVars = {urls: urlDatabase,
                       user: userObj};
   res.render("urls_index", templateVars);
@@ -46,15 +50,23 @@ app.post("/urls", (req, res) => {
 });
 
 app.get("/urls/new", (req, res) => {
-  let userId = req.cookies["user_id"]
-  let userObj = users[userId];
+  let userId = req.cookies["user_id"];
+  if (userId in users) {
+    userObj = users[userId];
+  } else {
+    userObj = null;
+  }
   let templateVars = { user: userObj };
   res.render("urls_new", templateVars);
 });
 
 app.get("/urls/:id", (req, res) => {
-  let userId = req.cookies["user_id"]
-  let userObj = users[userId];
+  let userId = req.cookies["user_id"];
+  if (userId in users) {
+    userObj = users[userId];
+  } else {
+    userObj = null;
+  }
   let templateVars = { shortURL: req.params.id,
                        longURL: urlDatabase[req.params.id],
                        user: userObj};
@@ -62,8 +74,12 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.post("/urls/:id", (req, res) => {
-  let userId = req.cookies["user_id"]
-  let userObj = users[userId];
+  let userId = req.cookies["user_id"];
+  if (userId in users) {
+    userObj = users[userId];
+  } else {
+    userObj = null;
+  }
   let templateVars = { shortURL: req.params.id,
                        longURL: req.body.longURL,
                        user: userObj};
