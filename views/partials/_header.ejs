@@ -1,11 +1,11 @@
 <header>
   <%if (!user) {%>
-    <form class="uselater" action="/logout" method="POST">
+    <form class="uselater" action="/login" method="POST">
       <button type="submit"><a href="/register">Register</a></button>
       <button type="submit"><a href="/login">Login</a></button>
     </form>
   <% } else { %>
-  <form action="/login" method="POST">
+  <form action="/logout" method="POST">
     <p>Logged in as <%= user.email %><p>
     <button type="submit">Logout</button>
   </form>
