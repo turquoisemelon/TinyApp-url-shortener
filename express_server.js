@@ -83,13 +83,33 @@ app.post("/register", (req,res) => {
   newUserId = generateRandomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
   newUserEmail = req.body.email;
   newUserPassword = req.body.password;
-  users[newUserId] = { id : newUserId,
-                       email: newUserEmail,
-                       password: newUserPassword
-                     };
-  res.cookie('user_id', newUserId);
-  console.log(users);
-  res.redirect("/");
+  let existingUserEmail;
+  for (element in users) {
+    if(users[element]['email'] === newUserEmail) {
+      existingUserEmail = newUserEmail;
+    }
+  }
+  console.log('existinguseremai: ', existingUserEmail);
+  if(newUserEmail === '' || newUserPassword === '') {
+    res.status(400).send("Please type a valid email and password");
+  } else {
+    for (element in users) {
+      if(users[element]['email'] === newUserEmail) {
+        existingUserEmail = newUserEmail;
+      }
+    }
+    if(existingUserEmail !== undefined) {
+      res.status(400).send("User already exists");
+    } else {
+      users[newUserId] = { id : newUserId,
+                           email: newUserEmail,
+                           password: newUserPassword
+                         };
+      res.cookie('user_id', newUserId);
+      console.log(users);
+      res.redirect("/");
+    }
+  }
 });
 
 app.post("/login", (req, res) => {
