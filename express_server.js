@@ -99,10 +99,6 @@ app.post("/urls/:id/delete", (req, res) => {
   res.redirect("/urls");
 });
 
-app.get("/login", (req, res) => {
-  res.render("urls_login");
-});
-
 app.get("/register", (req, res)=> {
   res.render("urls_register");
 });
@@ -117,7 +113,7 @@ app.post("/register", (req,res) => {
       existingUserEmail = newUserEmail;
     }
   }
-  console.log('existinguseremai: ', existingUserEmail);
+
   if(newUserEmail === '' || newUserPassword === '') {
     res.status(400).send("Please type a valid email and password");
   } else {
@@ -140,14 +136,32 @@ app.post("/register", (req,res) => {
   }
 });
 
+app.get("/login", (req, res) => {
+  res.render("urls_login");
+});
+
 app.post("/login", (req, res) => {
-  console.log(req.body.username);
-  res.cookie('username', req.body.username);
-  res.redirect("/");
+  let loggedUserEmail = req.body.email;
+  let loggedUserPassword = req.body.password;
+  let loggedUserId;
+  for (var elem in users) {
+    if(users[elem]["email"] === loggedUserEmail) {
+      loggedUserId = users[elem]["id"];
+    }
+  }
+  if(!loggedUserId) {
+      res.status(403).send("This user doesn't exist.");
+  } else {
+    if(users[loggedUserId]["password"] !== loggedUserPassword) {
+      res.status(403).send("Your password is incorrect.");
+    }
+  }
+  res.cookie('user_id', loggedUserId);
+  res.redirect('/');
 });
 
 app.post("/logout", (req, res) => {
-  res.clearCookie('username');
+  res.clearCookie('user_id');
   res.redirect("/");
 });
 
