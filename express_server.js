@@ -77,7 +77,20 @@ app.post("/urls/:id/delete", (req, res) => {
 
 app.get("/register", (req, res)=> {
   res.render("urls_register");
-})
+});
+
+app.post("/register", (req,res) => {
+  newUserId = generateRandomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  newUserEmail = req.body.email;
+  newUserPassword = req.body.password;
+  users[newUserId] = { id : newUserId,
+                       email: newUserEmail,
+                       password: newUserPassword
+                     };
+  res.cookie('user_id', newUserId);
+  console.log(users);
+  res.redirect("/");
+});
 
 app.post("/login", (req, res) => {
   console.log(req.body.username);
