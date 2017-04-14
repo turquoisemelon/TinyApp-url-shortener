@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 8080; // default port 8080
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -126,10 +127,11 @@ app.post("/urls/:id", (req, res) => {
   } else {
     userObj = null;
   }
-  let templateVars = { shortURL: req.params.id,
-                       longURL: req.body.longURL,
-                       user: userObj};
-  res.render("urls_show", templateVars);
+  urlDatabase[req.params.id]['longURL'] = req.body.longURL;
+  // let templateVars = { shortURL: req.params.id,
+  //                      longURL: req.body.longURL,
+  //                      user: userObj};
+  res.redirect("http://localhost:8080/urls");
 });
 
 app.get("/u/:shortURL", (req, res) => {
@@ -153,9 +155,10 @@ app.get("/register", (req, res)=> {
 });
 
 app.post("/register", (req,res) => {
-  newUserId = generateRandomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-  newUserEmail = req.body.email;
-  newUserPassword = req.body.password;
+  const newUserId = generateRandomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  const newUserEmail = req.body.email;
+  const newUserPassword = req.body.password;
+  const hashedPassword = bcrypt.hashSync(newUserPassword, 10);
   let existingUserEmail;
   for (element in users) {
     if(users[element]['email'] === newUserEmail) {
@@ -176,7 +179,7 @@ app.post("/register", (req,res) => {
     } else {
       users[newUserId] = { id : newUserId,
                            email: newUserEmail,
-                           password: newUserPassword
+                           password: hashedPassword
                          };
       res.cookie('user_id', newUserId);
       console.log(users);
