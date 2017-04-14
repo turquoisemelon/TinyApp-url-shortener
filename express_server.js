@@ -57,7 +57,11 @@ app.get("/urls/new", (req, res) => {
     userObj = null;
   }
   let templateVars = { user: userObj };
-  res.render("urls_new", templateVars);
+    if (req.cookies["user_id"] in users) {
+      res.render("urls_new", templateVars);
+    } else {
+      res.render("error", res.status(401));
+    }
 });
 
 app.get("/urls/:id", (req, res) => {
