@@ -9,16 +9,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser())
 
 const urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
-};
-
-const userUrlDatabase = {
-  "userRandomID": {
-    shortURL: ["b2xVn2", "9sm5xK"]
+  "b2xVn2": {
+    shortURL: "b2xVn2",
+    longURL: "http://www.lighthouselabs.ca",
+    userId: "apple"
   },
-  "user2RandomID": {
-    shortURL: ["b2xVn2", "9sm5xK"]
+  "9sm5xK": {
+    shortURL: "9sm5xK",
+    longURL: "http://www.google.com",
+    userId: "banana"
   }
 };
 
