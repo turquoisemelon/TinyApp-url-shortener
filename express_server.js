@@ -13,6 +13,15 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+const userUrlDatabase = {
+  "userRandomID": {
+    shortURL: ["b2xVn2", "9sm5xK"]
+  },
+  "user2RandomID": {
+    shortURL: ["b2xVn2", "9sm5xK"]
+  }
+};
+
 const users = {
   "userRandomID": {
     id: "userRandomID",
