@@ -41,14 +41,31 @@ app.get("/", (req, res) => {
 app.get("/urls", (req, res) => {
   let userId = req.cookies["user_id"];
   if (userId in users) {
-    userObj = users[userId];
+    let userObj = users[userId];
+    let templateVars = {urls: urlsForUser(userId),
+                        user: userObj};
+    res.render("urls_index", templateVars);
+    res.status(200);
   } else {
-    userObj = null;
+      res.render("error", res.status(401));
+      // userObj = null;
   }
-  let templateVars = {urls: urlDatabase,
-                      user: userObj};
-  res.render("urls_index", templateVars);
 });
+
+function urlsForUser(id) {
+  let filteredObj = {};
+  for (let urlKey in urlDatabase) {
+    if(id === urlDatabase[urlKey].userId) {
+      filteredObj[urlKey] = {
+        shortUrl: urlDatabase[urlKey].shortURL,
+        longURL: urlDatabase[urlKey].longURL,
+        userId: urlDatabase[urlKey].userId,
+        ownedByCurrentUser: id == urlDatabase[urlKey].userId
+      }
+    }
+  }
+  return filteredObj;
+}
 
 app.post("/urls", (req, res) => {
   let shortURL = generateRandomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
@@ -62,7 +79,6 @@ app.post("/urls", (req, res) => {
   } else {
     res.render("error", res.status(401));
   }
-  console.log(urlDatabase);
 });
 
 app.get("/urls/new", (req, res) => {
