@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 8080; // default port 8080
+const PORT = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
 // const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
@@ -44,7 +44,16 @@ const users = {
 }
 
 app.get("/", (req, res) => {
-  res.end("Hello!");
+  let userId = req.session["user_id"];
+  if (userId in users) {
+    let userObj = users[userId];
+    let templateVars = {user: userObj};
+    res.render("urls_new", templateVars);
+  } else {
+    let templateVars = {user: null};
+    res.render("urls_new", templateVars);
+  }
+
 });
 
 app.get("/urls", (req, res) => {
@@ -84,7 +93,7 @@ app.post("/urls", (req, res) => {
     userId: req.session['user_id']
   };
   if (req.session["user_id"] in users) {
-    res.redirect("http://localhost:8080/urls/" + shortURL);
+    res.redirect(`http://localhost:${PORT}/urls/` + shortURL);
   } else {
     res.render("error", res.status(401));
   }
@@ -139,7 +148,7 @@ app.post("/urls/:id", (req, res) => {
   // let templateVars = { shortURL: req.params.id,
   //                      longURL: req.body.longURL,
   //                      user: userObj};
-  res.redirect("http://localhost:8080/urls");
+  res.redirect(`http://localhost:${PORT}/urls`);
 });
 
 app.get("/u/:shortURL", (req, res) => {
