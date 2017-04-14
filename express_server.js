@@ -52,14 +52,17 @@ app.get("/urls", (req, res) => {
 
 app.post("/urls", (req, res) => {
   let shortURL = generateRandomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-  console.log(req.body);  // debug statement to see POST parameters
   urlDatabase[shortURL] = {
     shortURL: shortURL,
     longURL: req.body.longURL,
     userId: req.cookies['user_id']
   };
+  if (req.cookies["user_id"] in users) {
+    res.redirect("http://localhost:8080/urls/" + shortURL);
+  } else {
+    res.render("error", res.status(401));
+  }
   console.log(urlDatabase);
-  res.redirect("http://localhost:8080/urls/" + shortURL);
 });
 
 app.get("/urls/new", (req, res) => {
@@ -79,15 +82,25 @@ app.get("/urls/new", (req, res) => {
 
 app.get("/urls/:id", (req, res) => {
   let userId = req.cookies["user_id"];
+  let getShortURL = urlDatabase[req.params.id]["shortURL"];
+  let getLongURL = urlDatabase[req.params.id]["longURL"];
   if (userId in users) {
     userObj = users[userId];
   } else {
     userObj = null;
   }
   let templateVars = { shortURL: req.params.id,
-                       longURL: urlDatabase[req.params.id]['longURL'],
+                       longURL: getLongURL,
                        user: userObj};
-  res.render("urls_show", templateVars);
+   if (req.cookies["user_id"] in users === false) {
+     res.render("error", res.status(401));
+   } else if (req.cookies["user_id"] in users === true && req.cookies["user_id"] !== urlDatabase[req.params.id]["userId"]) {
+     res.render("error", res.status(403));
+   } else if (req.params.id !== getShortURL) {
+     res.render("error", res.status(401));
+   } else {
+     res.render("urls_show", templateVars);
+   }
 });
 
 app.post("/urls/:id", (req, res) => {
@@ -111,7 +124,6 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 app.post("/urls/:id/delete", (req, res) => {
-  console.log(req.params);
   delete urlDatabase[req.params.id];
   res.redirect("/urls");
 });
