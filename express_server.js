@@ -66,7 +66,6 @@ app.get("/urls", (req, res) => {
     res.status(200);
   } else {
       res.render("error", res.status(401));
-      // userObj = null;
   }
 });
 
@@ -216,18 +215,16 @@ app.post("/login", (req, res) => {
   for (var elem in users) {
     if(users[elem]["email"] === loggedUserEmail) {
       loggedUserId = users[elem]["id"];
+      console.log("loggedUserId: ", loggedUserId);
+      console.log("loggedUserPassword: ", loggedUserPassword);
+      console.log("users[elem]['password']: ", users[elem]["password"]);
+      if(bcrypt.compareSync(loggedUserPassword, users[elem]["password"]) === true) {
+        req.session['user_id'] = users[elem]["id"];
+        res.redirect('/');
+      }
     }
   }
-  if(!loggedUserId) {
-      res.status(403).send("This user doesn't exist.");
-  } else {
-    if(bcrypt.compareSync(loggedUserPassword, users[loggedUserId]["password"]) === false) {
-      res.status(403).send("Your password is incorrect.");
-    }
-  }
-  // res.cookie('user_id', loggedUserId);
-  req.session['user_id'] = users[elem]["id"];
-  res.redirect('/');
+  res.status(403).send("Username or password is not correct");
 });
 
 app.post("/logout", (req, res) => {
