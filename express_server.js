@@ -22,13 +22,13 @@ const urlDatabase = {
 };
 
 const users = {
-  "userRandomID": {
-    id: "userRandomID",
+  "apple": {
+    id: "apple",
     email: "user@example.com",
     password: "user1"
   },
- "user2RandomID": {
-    id: "user2RandomID",
+ "banana": {
+    id: "banana",
     email: "user2@example.com",
     password: "user2"
   }
@@ -124,8 +124,12 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 app.post("/urls/:id/delete", (req, res) => {
-  delete urlDatabase[req.params.id];
-  res.redirect("/urls");
+  if (urlDatabase[req.params.id]["userId"] === req.cookies["user_id"]) {
+    delete urlDatabase[req.params.id];
+    res.redirect("/urls");
+  } else {
+    res.render("error", res.status(401));
+  }
 });
 
 app.get("/register", (req, res)=> {
