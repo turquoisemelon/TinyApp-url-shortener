@@ -204,7 +204,7 @@ app.post("/login", (req, res) => {
   if(!loggedUserId) {
       res.status(403).send("This user doesn't exist.");
   } else {
-    if(users[loggedUserId]["password"] !== loggedUserPassword) {
+    if(bcrypt.compareSync(loggedUserPassword, users[loggedUserId]["password"]) === false) {
       res.status(403).send("Your password is incorrect.");
     }
   }
