@@ -10,7 +10,7 @@
   <ul>
     <% for (let prop in urls) { %>
     <form action="/urls/<%= prop %>/delete" method="POST">
-      <li><%= prop %> - <%= urls[prop] %></li>
+      <li><%= prop %> - <%= urls[prop]['longURL'] %></li>
       <button type="submit"><a href="/urls/new" style="text-decoration:none">Create a New Short Link</a></button>
       <button type="submit"><a href="/urls/<%= prop %>" style="text-decoration:none">Edit</a></button>
       <button type="submit">Delete</button>
