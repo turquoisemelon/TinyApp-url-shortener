@@ -10,10 +10,18 @@
   <ul>
     <% for (let prop in urls) { %>
     <form action="/urls/<%= prop %>/delete" method="POST">
-      <li><%= prop %> - <%= urls[prop]['longURL'] %></li>
-      <button type="submit"><a href="/urls/new" style="text-decoration:none">Create a New Short Link</a></button>
+      <li><a href="#">
+        <%= prop %> - <%= JSON.stringify(urls[prop].longURL) %>
+      </a></li>
+      <% if (urls[prop].ownedByCurrentUser) {%>
       <button type="submit"><a href="/urls/<%= prop %>" style="text-decoration:none">Edit</a></button>
+      <% } %>
+      <% if (urls[prop].ownedByCurrentUser) {%>
       <button type="submit">Delete</button>
+      <% } %>
+      <% if (urls[prop].ownedByCurrentUser) {%>
+      <button type="submit"><a href="/urls/new" style="text-decoration:none">Create a New Short Link</a></button>
+      <% } %>
     </form>
   <% } %>
   </ul>
