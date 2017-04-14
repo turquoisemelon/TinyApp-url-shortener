@@ -52,9 +52,14 @@ app.get("/urls", (req, res) => {
 
 app.post("/urls", (req, res) => {
   let shortURL = generateRandomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-  urlDatabase[shortURL] = req.body.longURL;
   console.log(req.body);  // debug statement to see POST parameters
-  res.redirect("http://localhost:3000/urls/" + shortURL);
+  urlDatabase[shortURL] = {
+    shortURL: shortURL,
+    longURL: req.body.longURL,
+    userId: req.cookies['user_id']
+  };
+  console.log(urlDatabase);
+  res.redirect("http://localhost:8080/urls/" + shortURL);
 });
 
 app.get("/urls/new", (req, res) => {
@@ -80,7 +85,7 @@ app.get("/urls/:id", (req, res) => {
     userObj = null;
   }
   let templateVars = { shortURL: req.params.id,
-                       longURL: urlDatabase[req.params.id],
+                       longURL: urlDatabase[req.params.id]['longURL'],
                        user: userObj};
   res.render("urls_show", templateVars);
 });
@@ -99,7 +104,7 @@ app.post("/urls/:id", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
-  let longURL = urlDatabase[req.params.shortURL];
+  let longURL = urlDatabase[req.params.shortURL]['longURL'];
   console.log(req.params);
   console.log(longURL);
   res.redirect(longURL);
@@ -175,10 +180,6 @@ app.post("/login", (req, res) => {
 app.post("/logout", (req, res) => {
   res.clearCookie('user_id');
   res.redirect("/");
-});
-
-app.get("/urls.json", (req, res) => {
-  res.json(urlDatabase);
 });
 
 app.listen(PORT, () => {
