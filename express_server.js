@@ -47,11 +47,9 @@ app.get("/", (req, res) => {
   let userId = req.session["user_id"];
   if (userId in users) {
     let userObj = users[userId];
-    let templateVars = {user: userObj};
-    res.render("urls_new", templateVars);
+    res.redirect("/urls");
   } else {
-    let templateVars = {user: null};
-    res.render("urls_new", templateVars);
+    res.redirect("/login")
   }
 
 });
