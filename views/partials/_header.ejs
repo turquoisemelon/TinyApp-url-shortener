@@ -6,7 +6,7 @@
     </form>
   <% } else { %>
   <form action="/logout" method="POST">
-    <p>Logged in as <%= user.email %><p>
+    <p>Welcome <%= user.email %><p>
     <button type="submit">Logout</button>
   </form>
   <% } %>
