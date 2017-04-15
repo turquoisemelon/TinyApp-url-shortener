@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
     let userObj = users[userId];
     res.redirect("/urls");
   } else {
-    res.redirect("/login")
+    res.redirect("/login");
   }
 
 });
@@ -63,7 +63,7 @@ app.get("/urls", (req, res) => {
     res.render("urls_index", templateVars);
     res.status(200);
   } else {
-      res.render("error", res.status(401));
+    res.render("error", res.status(401));
   }
 });
 
@@ -113,23 +113,23 @@ app.get("/urls/new", (req, res) => {
 
 app.get("/urls/:id", (req, res) => {
   let userId = req.session["user_id"];
-  let getShortURL = urlDatabase[req.params.id]["shortURL"];
-  let getLongURL = urlDatabase[req.params.id]["longURL"];
-  if (userId in users) {
-    userObj = users[userId];
-  } else {
-    userObj = null;
-  }
-  let templateVars = { shortURL: req.params.id,
-                       longURL: getLongURL,
-                       user: userObj};
-   if (req.session["user_id"] in users === false) {
+  if (req.params.id in urlDatabase === false) {
+    res.status(404).send("Please make sure that you use the correct path");
+  } else if (req.session["user_id"] in users === false) {
      res.render("error", res.status(401));
    } else if (req.session["user_id"] in users === true && req.session["user_id"] !== urlDatabase[req.params.id]["userId"]) {
      res.render("error", res.status(403));
-   } else if (req.params.id !== getShortURL) {
-     res.render("error", res.status(401));
    } else {
+     let getShortURL = urlDatabase[req.params.id]["shortURL"];
+     let getLongURL = urlDatabase[req.params.id]["longURL"];
+     if (userId in users) {
+       userObj = users[userId];
+     } else {
+       userObj = null;
+     }
+     let templateVars = { shortURL: req.params.id,
+                          longURL: getLongURL,
+                          user: userObj};
      res.render("urls_show", templateVars);
    }
 });
