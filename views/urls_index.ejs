@@ -9,13 +9,11 @@
   </header>
   <ul>
     <% for (let prop in urls) { %>
-      <form class="" action="/urls/u/<%= prop %>" method="POST">
-        <% if (urls[prop].ownedByCurrentUser) {%>
-          <li><a href="#">
-          <%= prop %> - <%= JSON.stringify(urls[prop].longURL) %>
-          </a></li>
-        <% } %>
-      </form>
+      <% if (urls[prop].ownedByCurrentUser) {%>
+        <li><a href="#">
+        <%= prop %> - <%= JSON.stringify(urls[prop].longURL) %>
+        </a></li>
+      <% } %>
       <form action="/urls/<%= prop %>" method="GET">
         <% if (urls[prop].ownedByCurrentUser) {%>
           <button type="submit"><a href="/urls/<%= prop %>" style="text-decoration:none">Edit</a></button>
@@ -26,10 +24,6 @@
           <button type="submit">Delete</button>
         <% } %>
       </form>
-
-
-
-
   <% } %>
   </ul>
   <a href="/urls/new" style="text-decoration:none">Create a New Short Link</a>
