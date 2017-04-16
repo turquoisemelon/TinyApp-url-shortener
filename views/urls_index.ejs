@@ -10,9 +10,9 @@
   <ul>
     <% for (let prop in urls) { %>
       <% if (urls[prop].ownedByCurrentUser) {%>
-        <li><a href="#">
+        <li>
         <%= prop %> - <%= JSON.stringify(urls[prop].longURL) %>
-        </a></li>
+        </li>
       <% } %>
       <form action="/urls/<%= prop %>" method="GET">
         <% if (urls[prop].ownedByCurrentUser) {%>
