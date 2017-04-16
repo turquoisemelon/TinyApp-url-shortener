@@ -142,17 +142,18 @@ app.post("/urls/:id", (req, res) => {
     userObj = null;
   }
   urlDatabase[req.params.id]['longURL'] = req.body.longURL;
-  // let templateVars = { shortURL: req.params.id,
-  //                      longURL: req.body.longURL,
-  //                      user: userObj};
-  res.redirect(`http://localhost:${PORT}/urls`);
+  let id = req.params.id;
+  res.redirect(`http://localhost:${PORT}/urls/${id}`);
 });
 
 app.get("/u/:shortURL", (req, res) => {
-  let longURL = urlDatabase[req.params.shortURL]['longURL'];
-  console.log(req.params);
-  console.log(longURL);
-  res.redirect(longURL);
+    let longURL = urlDatabase[req.params.shortURL]['longURL'];
+    console.log(urlDatabase);
+    console.log(req.params);
+    console.log(req.params.shortURL);
+    console.log(urlDatabase[req.params.shortURL]);
+    console.log(longURL);
+    res.redirect(longURL);
 });
 
 app.post("/urls/:id/delete", (req, res) => {
@@ -165,7 +166,12 @@ app.post("/urls/:id/delete", (req, res) => {
 });
 
 app.get("/register", (req, res)=> {
-  res.render("urls_register");
+  let userId = req.session["user_id"];
+  if(userId in users) {
+    res.redirect("/");
+  } else {
+    res.render("urls_register");
+  }
 });
 
 app.post("/register", (req,res) => {
@@ -203,7 +209,12 @@ app.post("/register", (req,res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("urls_login");
+  let userId = req.session["user_id"];
+  if(userId in users) {
+    res.redirect("/");
+  } else {
+    res.render("urls_login");
+  }
 });
 
 app.post("/login", (req, res) => {
