@@ -2,13 +2,12 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
-// const cookieParser = require('cookie-parser');
+const serveStatic = require('serve-static')
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
-// app.use(cookieParser());
 app.use(cookieSession({
   name: 'session',
   key: ['key1', 'key2 '],
@@ -16,6 +15,7 @@ app.use(cookieSession({
   // Cookie Options
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+app.use(serveStatic(`${__dirname}/public`));
 
 const urlDatabase = {
   "b2xVn2": {
