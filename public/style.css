@@ -1,4 +1,12 @@
-.login, .register {
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.login, .register, .error-body {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,10 +58,16 @@ input {
 .navbar-links-logout {
   display: flex;
   margin: auto;
+  margin-right: 40px;
+}
+
+.navbar-links-logout a {
+  margin-right: 20px;
 }
 
 .navbar-welcome {
   margin: auto;
+  margin-left: 20px;
 }
 
 .index-page-body {
@@ -66,7 +80,39 @@ input {
   height: 100%;
 }
 
-#index-page-ul {
+#create-new-link {
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+#index-page-main {
   display: flex;
-  flex-direction: column;
+}
+
+.shorturl-longurl {
+  display: flex;
+  width: 50%;
+  margin: 10px 10px 10px 10px;
+}
+
+.shorturl-longurl a {
+  margin: auto 40px auto 40px;
+}
+
+.edit-form button {
+  width: 100px;
+}
+
+.delete-form button {
+  width: 150px;
+}
+
+.urls-index-forms {
+  display: flex;
+  width: 50%;
+  padding-left: 50px;
+}
+
+.edit-form {
+  margin-right: 40px;
 }
