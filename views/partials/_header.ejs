@@ -6,11 +6,11 @@
       <button type="submit"><a href="/login">Login</a></button>
     </form>
   <% } else { %>
-    <nav class="navbar">
-      <div class="navbar-welcome">
+    <nav id="navbar">
+      <div id="navbar-welcome">
         <p>Welcome <%= user.email %><p>
       </div>
-      <div class="navbar-links-logout">
+      <div id="navbar-links-logout">
         <a href="/urls">My links</a>
       <form action="/logout" method="POST">
         <button type="submit">Logout</button>

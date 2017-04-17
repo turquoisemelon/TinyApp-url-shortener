@@ -5,7 +5,7 @@
   </head>
   <body class="new-urls">
     <% include partials/_header %>
-    <form action="/urls" method="POST" style="margin:150px;">
+    <form id="new-urls-form" action="/urls" method="POST" style="margin:150px;">
       <label for="longURL">Enter a URL:</label>
       <input id="longURL" type="text" name="longURL" placeholder="http://" required="true">
       <button type="submit" name="button">Submit</button>

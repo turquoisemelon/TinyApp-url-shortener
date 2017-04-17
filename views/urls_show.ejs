@@ -3,10 +3,9 @@
   <head>
     <% include partials/_head %>
   </head>
-  <body class="urls-show">
-    <header>
+  <body class="urls-show-body">
     <% include partials/_header %>
-    </header>
+    <div class="urls-show">
     <h2>ShortURL: <%= shortURL%></h2>
     <h2>LongURL: <%= longURL%></h2>
     <form action="/urls/<%= shortURL %>" method="POST">
@@ -16,5 +15,6 @@
     <form class="" action="/urls/<%= shortURL %>/delete" method="POST">
       <button type="submit" name="button">Delete</button>
     </form>
+    </div>
   </body>
 </html>
