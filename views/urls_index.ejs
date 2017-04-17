@@ -8,11 +8,12 @@
   <% include partials/_header %>
   </header>
   <a id="create-new-link" href="/urls/new" style="text-decoration:none">Create a New Short Link</a>
-  <main id="index-page-main">
-    <% for (let prop in urls) { %>
+
+  <% for (let prop in urls) { %>
+    <section id="index-page-main">
       <% if (urls[prop].ownedByCurrentUser) {%>
         <div class="shorturl-longurl">
-          <a href=`http://localhost:3000/u/${<%= prop %>}` target="_blank">
+          <a href=`/u/${<%=prop%>}` target="_blank">
             http://localhost:3000/<%= prop %>
           </a>
           <p>http://<%= urls[prop].longURL %></p>
@@ -29,8 +30,8 @@
               <button type="submit">Delete</button>
             <% } %>
           </form>
-          <% } %>
         </div>
-</main>
+    </section>
+<% } %>
 </body>
 </html>
