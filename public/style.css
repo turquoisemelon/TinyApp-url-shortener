@@ -87,6 +87,14 @@ body.new-urls {
   font-size: 25px;
 }
 
+.urls-show h2 {
+  margin: 30px 0px 15px 0px;
+}
+
+.urls-show h2:nth-of-type(2) {
+  margin: 0px 0px 50px 0px;
+}
+
 /*.urls-show-form {}*/
 
 form {
