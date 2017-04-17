@@ -3,11 +3,12 @@
 <head>
   <% include partials/_head %>
 </head>
-<body>
+<body class="index-page-body">
   <header>
   <% include partials/_header %>
   </header>
-  <ul>
+  <a id="create-new-link" href="/urls/new" style="text-decoration:none">Create a New Short Link</a>
+  <ul id="index-page-ul">
     <% for (let prop in urls) { %>
       <% if (urls[prop].ownedByCurrentUser) {%>
         <li>
@@ -26,6 +27,5 @@
       </form>
   <% } %>
   </ul>
-  <a href="/urls/new" style="text-decoration:none">Create a New Short Link</a>
 </body>
 </html>

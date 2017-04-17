@@ -1,3 +1,4 @@
+
 <header>
   <%if (!user) {%>
     <form class="uselater" action="/login" method="POST">
@@ -5,10 +6,16 @@
       <button type="submit"><a href="/login">Login</a></button>
     </form>
   <% } else { %>
-  <form action="/logout" method="POST">
-    <p>Welcome <%= user.email %><p>
-    <a href="/urls">My links</a>
-    <button type="submit">Logout</button>
-  </form>
-  <% } %>
+    <nav class="navbar">
+      <div class="navbar-welcome">
+        <p>Welcome <%= user.email %><p>
+      </div>
+      <div class="navbar-links-logout">
+        <a href="/urls">My links</a>
+      <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+      </form>
+      <% } %>
+      </div>
+    </nav>
 </header>

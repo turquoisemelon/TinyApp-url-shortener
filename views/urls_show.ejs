@@ -3,14 +3,14 @@
   <head>
     <% include partials/_head %>
   </head>
-  <body>
+  <body class="urls-show">
     <header>
     <% include partials/_header %>
     </header>
     <h2>ShortURL: <%= shortURL%></h2>
     <h2>LongURL: <%= longURL%></h2>
     <form action="/urls/<%= shortURL %>" method="POST">
-      <input type="text" name="longURL" placeholder="<%= longURL %>" style="width: 300px" required="true">
+      <input type="text" name="longURL" placeholder="<%= longURL %>" required="true">
       <button type="submit">Update</button>
     </form>
     <form class="" action="/urls/<%= shortURL %>/delete" method="POST">
