@@ -15,6 +15,34 @@ html {
   background-color: rgb(203, 233, 244);
 }
 
+/*styling _header.ejs*/
+#navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#navbar-mylinks-logout {
+  display: flex;
+  margin: auto;
+  margin-right: 40px;
+}
+
+#navbar-mylinks-logout a {
+  text-decoration: none;
+  color: black;
+}
+
+#navbar-mylinks-logout button {
+  margin-right: 20px;
+  padding: 5px 10px 5px 10px;
+  text-align: center;
+}
+
+#navbar-welcome {
+  margin: auto;
+  margin-left: 20px;
+}
+
 /* styling of url_new.ejs */
 body.new-urls {
   font-family: 'Indie Flower', cursive;
@@ -30,6 +58,16 @@ body.new-urls {
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  margin: 200px;
+}
+
+#new-urls-form label {
+  margin-right: 20px;
+}
+
+#longURL {
+  width: 350px;
+  margin-right: 20px;
 }
 
 /* styling of url_show.ejs */
@@ -49,6 +87,8 @@ body.new-urls {
   font-size: 25px;
 }
 
+/*.urls-show-form {}*/
+
 form {
   display: flex;
   flex-direction: column;
@@ -63,27 +103,6 @@ input {
   border-radius: 4px;
 }
 
-/*styling _header.ejs*/
-#navbar {
-  display: flex;
-  justify-content: space-between;
-}
-
-#navbar-links-logout {
-  display: flex;
-  margin: auto;
-  margin-right: 40px;
-}
-
-#navbar-links-logout a {
-  margin-right: 20px;
-}
-
-#navbar-welcome {
-  margin: auto;
-  margin-left: 20px;
-}
-
 /* styling of url_index.ejs */
 .index-page-body {
   display: flex;
@@ -96,8 +115,9 @@ input {
 }
 
 #create-new-link {
-  margin-left: 50px;
+  margin-left: 70px;
   margin-top: 50px;
+  color: black;
 }
 
 #index-page-main {
@@ -107,19 +127,11 @@ input {
 .shorturl-longurl {
   display: flex;
   width: 50%;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 70px;
 }
 
 .shorturl-longurl a {
-  margin: auto 40px auto 40px;
-}
-
-.edit-form button {
-  width: 100px;
-}
-
-.delete-form button {
-  width: 150px;
+  margin: auto 40px auto 0;
 }
 
 .urls-index-forms {
@@ -130,6 +142,18 @@ input {
 
 .edit-form {
   margin-right: 40px;
+}
+
+.edit-form button {
+  width: 100px;
+}
+
+.edit-form a {
+  color: black;
+}
+
+.delete-form button {
+  width: 150px;
 }
 
 /* styling of error.ejs */
