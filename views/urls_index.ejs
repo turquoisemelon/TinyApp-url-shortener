@@ -8,24 +8,29 @@
   <% include partials/_header %>
   </header>
   <a id="create-new-link" href="/urls/new" style="text-decoration:none">Create a New Short Link</a>
-  <ul id="index-page-ul">
+  <main id="index-page-main">
     <% for (let prop in urls) { %>
       <% if (urls[prop].ownedByCurrentUser) {%>
-        <li>
-        <%= prop %> - <%= JSON.stringify(urls[prop].longURL) %>
-        </li>
-      <% } %>
-      <form action="/urls/<%= prop %>" method="GET">
-        <% if (urls[prop].ownedByCurrentUser) {%>
-          <button type="submit"><a href="/urls/<%= prop %>" style="text-decoration:none">Edit</a></button>
-        <% } %>
-      </form>
-      <form class="" action="/urls/<%= prop %>/delete" method="POST">
-        <% if (urls[prop].ownedByCurrentUser) {%>
-          <button type="submit">Delete</button>
-        <% } %>
-      </form>
-  <% } %>
-  </ul>
+        <div class="shorturl-longurl">
+          <a href=`http://localhost:3000/u/${<%= prop %>}` target="_blank">
+            http://localhost:3000/<%= prop %>
+          </a>
+          <p>http://<%= urls[prop].longURL %></p>
+          <% } %>
+        </div>
+        <div class="urls-index-forms">
+          <form class="edit-form" action="/urls/<%= prop %>" method="GET">
+            <% if (urls[prop].ownedByCurrentUser) {%>
+              <button type="submit"><a href="/urls/<%= prop %>" style="text-decoration:none">Edit</a></button>
+            <% } %>
+          </form>
+          <form class="delete-form" action="/urls/<%= prop %>/delete" method="POST">
+            <% if (urls[prop].ownedByCurrentUser) {%>
+              <button type="submit">Delete</button>
+            <% } %>
+          </form>
+          <% } %>
+        </div>
+</main>
 </body>
 </html>
