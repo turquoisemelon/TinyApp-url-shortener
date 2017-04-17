@@ -153,8 +153,16 @@ app.get("/u/:shortURL", (req, res) => {
     console.log(req.params.shortURL);
     console.log(urlDatabase[req.params.shortURL]);
     console.log(longURL);
-    res.redirect(longURL);
+    res.redirect(checkValidURL(longURL));
 });
+
+function checkValidURL(longURL) {
+  if (longURL.includes("http://") || longURL.includes("https://")) {
+    return longURL;
+  } else {
+      return "https://" + longURL;
+  }
+}
 
 app.post("/urls/:id/delete", (req, res) => {
   if (urlDatabase[req.params.id]["userId"] === req.session["user_id"]) {
