@@ -11,12 +11,12 @@
     <section id="index-page-main">
       <% if (urls[prop].ownedByCurrentUser) {%>
         <div class="shorturl-longurl">
-          <a href=`/u/${<%=prop%>}` target="_blank">
-            http://localhost:3000/<%= prop %>
+          <a href="http://localhost:3000/u/<%=prop%>" target="_blank">
+            http://localhost:3000/u/<%= prop %>
           </a>
-          <p>http://<%= urls[prop].longURL %></p>
-          <% } %>
+          <p><%= urls[prop].longURL %></p>
         </div>
+        <% } %>
         <div class="urls-index-forms">
           <form class="edit-form" action="/urls/<%= prop %>" method="GET">
             <% if (urls[prop].ownedByCurrentUser) {%>
