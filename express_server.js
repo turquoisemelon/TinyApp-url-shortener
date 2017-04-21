@@ -113,12 +113,12 @@ app.get("/urls/new", (req, res) => {
 
 app.get("/urls/:id", (req, res) => {
   let userId = req.session["user_id"];
-  if (req.params.id in urlDatabase === false) {
-    res.status(404).send("Please make sure that you use the correct path");
-  } else if (req.session["user_id"] in users === false) {
+     if (req.session["user_id"] in users === false) {
      res.render("error", res.status(401));
    } else if (req.session["user_id"] in users === true && req.session["user_id"] !== urlDatabase[req.params.id]["userId"]) {
      res.render("error", res.status(403));
+   } else if (req.params.id in urlDatabase === false) {
+     res.status(404).send("This url doesn't exist");
    } else {
      let getShortURL = urlDatabase[req.params.id]["shortURL"];
      let getLongURL = urlDatabase[req.params.id]["longURL"];
@@ -136,14 +136,17 @@ app.get("/urls/:id", (req, res) => {
 
 app.post("/urls/:id", (req, res) => {
   let userId = req.session["user_id"];
-  if (userId in users) {
-    userObj = users[userId];
-  } else {
-    userObj = null;
-  }
-  urlDatabase[req.params.id]['longURL'] = req.body.longURL;
-  let id = req.params.id;
-  res.redirect(`http://localhost:${PORT}/urls/${id}`);
+   if (req.session["user_id"] in users === false) {
+    res.render("error", res.status(401));
+   } else if (req.session["user_id"] in users === true && req.session["user_id"] !== urlDatabase[req.params.id]["userId"]) {
+    res.render("error", res.status(403));
+   } else if (req.params.id in urlDatabase === false) {
+    res.status(404).send("This url doesn't exist");
+   } else {
+      urlDatabase[req.params.id]['longURL'] = req.body.longURL;
+      let id = req.params.id;
+      res.redirect(`http://localhost:${PORT}/urls/${id}`);
+   }
 });
 
 app.get("/u/:shortURL", (req, res) => {
