@@ -45,19 +45,19 @@ const users = {
 
 app.get("/", (req, res) => {
   let userId = req.session["user_id"];
+  console.log("userId: ", userId);
   if (userId in users) {
-    let userObj = users[userId];
     res.redirect("/urls");
   } else {
     res.redirect("/login");
   }
-
 });
 
 app.get("/urls", (req, res) => {
   let userId = req.session["user_id"];
   if (userId in users) {
     let userObj = users[userId];
+    console.log("userObj: ", userObj);
     let templateVars = {urls: urlsForUser(userId),
                         user: userObj};
     res.render("urls_index", templateVars);
@@ -151,11 +151,6 @@ app.post("/urls/:id", (req, res) => {
 
 app.get("/u/:shortURL", (req, res) => {
     let longURL = urlDatabase[req.params.shortURL]['longURL'];
-    console.log(urlDatabase);
-    console.log(req.params);
-    console.log(req.params.shortURL);
-    console.log(urlDatabase[req.params.shortURL]);
-    console.log(longURL);
     res.redirect(checkValidURL(longURL));
 });
 
@@ -191,32 +186,24 @@ app.post("/register", (req,res) => {
   const newUserPassword = req.body.password;
   const hashedPassword = bcrypt.hashSync(newUserPassword, 10);
   let existingUserEmail;
-  for (element in users) {
-    if(users[element]['email'] === newUserEmail) {
-      existingUserEmail = newUserEmail;
-    }
-  }
 
   if(newUserEmail === '' || newUserPassword === '') {
     res.status(400).send("Please type a valid email and password");
   } else {
-    for (element in users) {
-      if(users[element]['email'] === newUserEmail) {
-        existingUserEmail = newUserEmail;
+      for (let element in users) {
+        if(users[element]['email'] === newUserEmail) {
+          return res.status(400).send("User already exists");
+        }
       }
     }
-    if(existingUserEmail !== undefined) {
-      res.status(400).send("User already exists");
-    } else {
-      users[newUserId] = { id : newUserId,
-                           email: newUserEmail,
-                           password: hashedPassword
-                         };
-      res.cookie('user_id', newUserId);
-      console.log(users);
-      res.redirect("/");
-    }
-  }
+  users[newUserId] = { id : newUserId,
+                       email: newUserEmail,
+                       password: hashedPassword
+                     }; //insert the registered user to the db
+  res.cookie('user_id', newUserId); //sets cookie
+  req.session['user_id'] = newUserId; //sets a session id
+  console.log("users: ", users);
+  return res.redirect("/");
 });
 
 app.get("/login", (req, res) => {
@@ -240,7 +227,7 @@ app.post("/login", (req, res) => {
       console.log("users[elem]['password']: ", users[elem]["password"]);
       if(bcrypt.compareSync(loggedUserPassword, users[elem]["password"]) === true) {
         req.session['user_id'] = users[elem]["id"];
-        res.redirect('/');
+        return res.redirect('/');
       }
     }
   }
