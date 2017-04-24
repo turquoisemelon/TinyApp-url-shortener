@@ -11,7 +11,7 @@ html {
   align-items: center;
   justify-content: center;
   font-size: 25px;
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(203, 233, 244);
 }
 
@@ -45,7 +45,7 @@ html {
 
 /* styling of url_new.ejs */
 body.new-urls {
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(203, 233, 244);
   font-size:25px;
   display: flex;
@@ -77,12 +77,12 @@ body.new-urls {
   justify-content: center;
   flex-direction: column;
   font-size: 25px;
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(203, 233, 244);
 }
 
 .urls-show-body {
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(203, 233, 244);
   font-size: 25px;
 }
@@ -116,7 +116,7 @@ input {
   display: flex;
   flex-direction: column;
   font-size: 25px;
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(203, 233, 244);
   margin: 0;
   height: 100%;
@@ -171,6 +171,6 @@ input {
   align-items: center;
   justify-content: center;
   font-size: 25px;
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(203, 233, 244);
 }
