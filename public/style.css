@@ -65,7 +65,6 @@ body.new-urls {
   background-color: rgb(203, 233, 244);
   font-size:25px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
 }
 
